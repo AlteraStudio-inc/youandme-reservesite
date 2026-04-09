@@ -76,19 +76,19 @@ export default function MenuItemForm({ item, onClose }: Props) {
   };
 
   return (
-    <div className="fixed inset-0 z-[200] flex items-center justify-center">
+    <div className="fixed inset-0 z-[200] flex items-end sm:items-center justify-center">
       <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative z-10 bg-white rounded-xl shadow-2xl w-full max-w-lg mx-4 max-h-[90vh] overflow-y-auto">
+      <div className="relative z-10 bg-white w-full sm:max-w-lg sm:mx-4 sm:rounded-xl rounded-t-2xl shadow-2xl max-h-[95dvh] sm:max-h-[90vh] overflow-y-auto">
         <div className="sticky top-0 bg-white border-b border-gray-200 px-5 py-4 flex items-center justify-between z-10">
           <h2 className="text-[16px] font-bold text-gray-900">
             {isEdit ? "メニューを編集" : "メニューを追加"}
           </h2>
           <button
             onClick={onClose}
-            className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors"
+            className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 active:bg-gray-200 transition-colors"
           >
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M4 4l8 8m0-8l-8 8" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <path d="M5 5l8 8m0-8l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
             </svg>
           </button>
         </div>
@@ -114,7 +114,7 @@ export default function MenuItemForm({ item, onClose }: Props) {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Jerk Chicken"
-              className="w-full h-10 px-3 rounded-lg border border-gray-200 text-[13px] focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500/20"
+              className="w-full h-11 px-3 rounded-lg border border-gray-200 text-[14px] focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500/20"
             />
           </div>
 
@@ -128,7 +128,7 @@ export default function MenuItemForm({ item, onClose }: Props) {
               value={titleJa}
               onChange={(e) => setTitleJa(e.target.value)}
               placeholder="ジャークチキン"
-              className="w-full h-10 px-3 rounded-lg border border-gray-200 text-[13px] focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500/20"
+              className="w-full h-11 px-3 rounded-lg border border-gray-200 text-[14px] focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500/20"
             />
           </div>
 
@@ -139,7 +139,7 @@ export default function MenuItemForm({ item, onClose }: Props) {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               rows={3}
-              className="w-full px-3 py-2 rounded-lg border border-gray-200 text-[13px] resize-none focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500/20"
+              className="w-full px-3 py-3 rounded-lg border border-gray-200 text-[14px] resize-none focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500/20"
             />
           </div>
 
@@ -165,7 +165,7 @@ export default function MenuItemForm({ item, onClose }: Props) {
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
                 placeholder="1200"
-                className="w-full h-10 px-3 rounded-lg border border-gray-200 text-[13px] focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500/20"
+                className="w-full h-11 px-3 rounded-lg border border-gray-200 text-[14px] focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500/20"
               />
             </div>
           </div>
@@ -178,7 +178,7 @@ export default function MenuItemForm({ item, onClose }: Props) {
                 type="number"
                 value={sortOrder}
                 onChange={(e) => setSortOrder(e.target.value)}
-                className="w-full h-10 px-3 rounded-lg border border-gray-200 text-[13px] focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500/20"
+                className="w-full h-11 px-3 rounded-lg border border-gray-200 text-[14px] focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500/20"
               />
             </div>
             <div className="flex items-end pb-1">
@@ -214,18 +214,18 @@ export default function MenuItemForm({ item, onClose }: Props) {
           )}
 
           {/* Actions */}
-          <div className="flex gap-2.5 pt-2">
+          <div className="flex gap-2.5 pt-2 pb-2">
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 h-10 border border-gray-200 text-gray-600 text-[13px] font-medium rounded-lg hover:bg-gray-50 transition-colors"
+              className="flex-1 h-12 border border-gray-200 text-gray-600 text-[14px] font-medium rounded-xl active:bg-gray-100 hover:bg-gray-50 transition-colors"
             >
               キャンセル
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="flex-1 h-10 bg-green-600 text-white text-[13px] font-medium rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50"
+              className="flex-[2] h-12 bg-green-600 text-white text-[14px] font-bold rounded-xl active:bg-green-800 hover:bg-green-700 transition-colors disabled:opacity-50"
             >
               {isSubmitting ? "保存中..." : isEdit ? "更新する" : "追加する"}
             </button>

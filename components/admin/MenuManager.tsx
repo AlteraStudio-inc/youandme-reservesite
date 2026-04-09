@@ -55,7 +55,7 @@ export default function MenuManager({ menuItems }: { menuItems: MenuItem[] }) {
             setEditItem(null);
             setFormOpen(true);
           }}
-          className="flex items-center gap-1.5 px-4 py-2 bg-green-600 text-white text-[13px] font-medium rounded-lg hover:bg-green-700 transition-colors"
+          className="flex items-center justify-center gap-1.5 w-full sm:w-auto px-5 py-3 sm:py-2 bg-green-600 text-white text-[14px] sm:text-[13px] font-medium rounded-lg active:bg-green-800 hover:bg-green-700 transition-colors"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
@@ -123,25 +123,25 @@ export default function MenuManager({ menuItems }: { menuItems: MenuItem[] }) {
                 )}
 
                 {/* Actions */}
-                <div className="flex gap-1.5 mt-3 pt-3 border-t border-gray-100">
+                <div className="flex gap-2 mt-3 pt-3 border-t border-gray-100">
                   <button
                     onClick={() => {
                       setEditItem(item);
                       setFormOpen(true);
                     }}
-                    className="flex-1 h-8 text-[11px] font-medium text-gray-600 bg-gray-50 rounded-md hover:bg-gray-100 transition-colors"
+                    className="flex-1 h-10 text-[13px] font-medium text-gray-600 bg-gray-50 rounded-lg active:bg-gray-200 hover:bg-gray-100 transition-colors"
                   >
                     編集
                   </button>
                   <button
                     onClick={() => handleToggleVisibility(item)}
-                    className="flex-1 h-8 text-[11px] font-medium text-gray-600 bg-gray-50 rounded-md hover:bg-gray-100 transition-colors"
+                    className="flex-1 h-10 text-[13px] font-medium text-gray-600 bg-gray-50 rounded-lg active:bg-gray-200 hover:bg-gray-100 transition-colors"
                   >
                     {item.is_visible ? "非公開" : "公開"}
                   </button>
                   <button
                     onClick={() => setDeleteDialog({ isOpen: true, item })}
-                    className="h-8 px-3 text-[11px] font-medium text-red-600 bg-red-50 rounded-md hover:bg-red-100 transition-colors"
+                    className="h-10 px-4 text-[13px] font-medium text-red-600 bg-red-50 rounded-lg active:bg-red-200 hover:bg-red-100 transition-colors"
                   >
                     削除
                   </button>

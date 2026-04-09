@@ -51,17 +51,17 @@ export default function MenuClient({ items }: { items: MenuItem[] }) {
   return (
     <>
       {/* Category filter tabs */}
-      <div className="flex flex-wrap gap-2 mb-10 sm:mb-12">
+      <div className="flex gap-2 mb-8 sm:mb-12 overflow-x-auto pb-2 -mx-5 px-5 sm:mx-0 sm:px-0 sm:flex-wrap scrollbar-none">
         <button
           onClick={() => setActiveCategory("all")}
-          className={`h-9 px-4 rounded-full text-[12px] font-semibold tracking-wide transition-all duration-200 ${
+          className={`h-10 sm:h-9 px-5 sm:px-4 rounded-full text-[13px] sm:text-[12px] font-semibold tracking-wide transition-all duration-200 whitespace-nowrap shrink-0 ${
             activeCategory === "all"
               ? "bg-text-primary text-white"
               : "bg-white text-text-secondary border border-border hover:border-text-secondary"
           }`}
         >
           All
-          <span className="ml-1.5 text-[10px] opacity-50">{items.length}</span>
+          <span className="ml-1.5 text-[11px] sm:text-[10px] opacity-50">{items.length}</span>
         </button>
         {categories.map((cat) => {
           const count = items.filter((item) => item.tag === cat).length;
@@ -69,14 +69,14 @@ export default function MenuClient({ items }: { items: MenuItem[] }) {
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`h-9 px-4 rounded-full text-[12px] font-semibold tracking-wide transition-all duration-200 ${
+              className={`h-10 sm:h-9 px-5 sm:px-4 rounded-full text-[13px] sm:text-[12px] font-semibold tracking-wide transition-all duration-200 whitespace-nowrap shrink-0 ${
                 activeCategory === cat
                   ? "bg-brand-green-dark text-white"
                   : "bg-white text-text-secondary border border-border hover:border-brand-green hover:text-brand-green"
               }`}
             >
               {CATEGORY_LABELS[cat] ?? cat}
-              <span className="ml-1.5 text-[10px] opacity-50">{count}</span>
+              <span className="ml-1.5 text-[11px] sm:text-[10px] opacity-50">{count}</span>
             </button>
           );
         })}
@@ -86,14 +86,15 @@ export default function MenuClient({ items }: { items: MenuItem[] }) {
       {filtered.length === 0 ? (
         <p className="text-text-tertiary text-[14px]">メニューは現在準備中です。</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-5">
           {filtered.map((item, index) => (
             <Link
               key={item.id}
               href={`/menu/${item.id}`}
-              className="group bg-white rounded-xl sm:rounded-2xl overflow-hidden border border-border hover:shadow-xl transition-all duration-500 hover:-translate-y-1 flex flex-col"
+              className="group bg-white rounded-xl sm:rounded-2xl overflow-hidden border border-border hover:shadow-xl transition-all duration-500 hover:-translate-y-1 flex flex-row sm:flex-col"
             >
-              <div className="aspect-[4/3] overflow-hidden bg-surface-alt">
+              {/* Image: square on mobile (left), 4:3 on desktop (top) */}
+              <div className="w-28 sm:w-full aspect-square sm:aspect-[4/3] shrink-0 overflow-hidden bg-surface-alt">
                 {item.image_path ? (
                   <img
                     src={getImageUrl(item.image_path)}
@@ -108,14 +109,15 @@ export default function MenuClient({ items }: { items: MenuItem[] }) {
                       className="w-full h-full object-cover opacity-30 group-hover:scale-105 transition-transform duration-700"
                     />
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-text-tertiary text-[11px] tracking-widest uppercase">No Image</span>
+                      <span className="text-text-tertiary text-[10px] tracking-widest uppercase">No Image</span>
                     </div>
                   </div>
                 )}
               </div>
-              <div className="p-4 sm:p-5 flex flex-col flex-1">
+              {/* Content */}
+              <div className="p-3 sm:p-5 flex flex-col flex-1 min-w-0 justify-center">
                 {item.tag && (
-                  <span className={`text-[9px] font-semibold tracking-[0.15em] uppercase w-fit mb-2 ${
+                  <span className={`text-[9px] font-semibold tracking-[0.15em] uppercase w-fit mb-1 sm:mb-2 ${
                     item.tag === "Signature" ? "text-brand-yellow-dark" :
                     item.tag === "Drinks" ? "text-blue-500" :
                     item.tag === "Side" ? "text-orange-500" :
@@ -124,19 +126,19 @@ export default function MenuClient({ items }: { items: MenuItem[] }) {
                     {CATEGORY_LABELS[item.tag] ?? item.tag}
                   </span>
                 )}
-                <h2 className="text-[15px] sm:text-[16px] font-bold tracking-tight mb-0.5 leading-snug">
+                <h2 className="text-[14px] sm:text-[16px] font-bold tracking-tight mb-0.5 leading-snug truncate">
                   {item.title}
                 </h2>
-                <p className="text-text-tertiary text-[11px] mb-2">{item.title_ja}</p>
-                <p className="text-text-secondary text-[12px] leading-relaxed flex-1 line-clamp-2">
+                <p className="text-text-tertiary text-[11px] mb-1 sm:mb-2 truncate">{item.title_ja}</p>
+                <p className="text-text-secondary text-[12px] leading-relaxed flex-1 line-clamp-1 sm:line-clamp-2 hidden sm:block">
                   {item.description}
                 </p>
                 {item.price && (
-                  <p className="text-brand-green-dark text-[14px] font-bold mt-2">
+                  <p className="text-brand-green-dark text-[14px] font-bold mt-1 sm:mt-2">
                     ¥{item.price.toLocaleString()}
                   </p>
                 )}
-                <span className="text-[11px] text-text-tertiary mt-3 flex items-center gap-1 group-hover:text-brand-green transition-colors">
+                <span className="text-[11px] text-text-tertiary mt-1 sm:mt-3 items-center gap-1 group-hover:text-brand-green transition-colors hidden sm:flex">
                   詳細を見る
                   <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
                     <path d="M3 8l5-5m0 0H4M8 3v4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>

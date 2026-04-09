@@ -57,7 +57,7 @@ export default async function MenuDetailPage({ params }: Props) {
           </Link>
           <Link
             href="/menu"
-            className="text-[12px] text-text-secondary hover:text-text-primary transition-colors flex items-center gap-1.5"
+            className="text-[13px] text-text-secondary hover:text-text-primary active:text-text-primary transition-colors flex items-center gap-1.5 h-10 px-3 -mr-3 rounded-lg"
           >
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
               <path d="M9 3L5 7l4 4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -108,12 +108,12 @@ export default async function MenuDetailPage({ params }: Props) {
             <h2 className="text-[18px] sm:text-[20px] font-bold tracking-tight mb-6">
               その他のメニュー
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
+            <div className="flex gap-3 overflow-x-auto pb-2 -mx-5 px-5 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-3 sm:gap-5 sm:overflow-visible scrollbar-none">
               {otherItems.map((other) => (
                 <Link
                   key={other.id}
                   href={`/menu/${other.id}`}
-                  className="group bg-white rounded-xl overflow-hidden border border-border hover:shadow-lg transition-all duration-500 hover:-translate-y-0.5"
+                  className="group bg-white rounded-xl overflow-hidden border border-border hover:shadow-lg transition-all duration-500 hover:-translate-y-0.5 shrink-0 w-[200px] sm:w-auto"
                 >
                   <div className="aspect-[4/3] overflow-hidden bg-surface-alt">
                     <img
@@ -122,9 +122,14 @@ export default async function MenuDetailPage({ params }: Props) {
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     />
                   </div>
-                  <div className="p-4">
-                    <h3 className="text-[15px] font-bold tracking-tight">{other.title}</h3>
+                  <div className="p-3 sm:p-4">
+                    <h3 className="text-[14px] sm:text-[15px] font-bold tracking-tight">{other.title}</h3>
                     <p className="text-text-tertiary text-[11px]">{other.title_ja}</p>
+                    {other.price && (
+                      <p className="text-brand-green-dark text-[13px] font-bold mt-1">
+                        ¥{other.price.toLocaleString()}
+                      </p>
+                    )}
                   </div>
                 </Link>
               ))}
