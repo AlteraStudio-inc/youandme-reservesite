@@ -27,6 +27,7 @@ export default function MenuItemForm({ item, onClose }: Props) {
   const [isVisible, setIsVisible] = useState(item?.is_visible ?? true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,11 +62,12 @@ export default function MenuItemForm({ item, onClose }: Props) {
 
       if (!res.ok) {
         const data = await res.json();
-        throw new Error(data.error || "保存に失敗しました");
+        throw new Error(data.error || `保存に失敗しました (${res.status})`);
       }
 
+      setSuccess(true);
       router.refresh();
-      onClose();
+      setTimeout(() => onClose(), 800);
     } catch (err) {
       setError(err instanceof Error ? err.message : "保存に失敗しました");
     } finally {
@@ -192,8 +194,21 @@ export default function MenuItemForm({ item, onClose }: Props) {
             </div>
           </div>
 
+          {success && (
+            <div className="flex items-center gap-1.5 bg-green-50 border border-green-200 rounded-lg p-3 text-[12px] text-green-600">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <circle cx="7" cy="7" r="6" stroke="currentColor" strokeWidth="1.2"/>
+                <path d="M4.5 7l2 2 3-3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              {isEdit ? "更新しました" : "追加しました"}
+            </div>
+          )}
           {error && (
-            <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-[12px] text-red-600">
+            <div className="flex items-center gap-1.5 bg-red-50 border border-red-200 rounded-lg p-3 text-[12px] text-red-600">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <circle cx="7" cy="7" r="6" stroke="currentColor" strokeWidth="1.2"/>
+                <path d="M7 4.5v3M7 9.5v.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+              </svg>
               {error}
             </div>
           )}
