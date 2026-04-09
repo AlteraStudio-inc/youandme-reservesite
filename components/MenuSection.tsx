@@ -1,39 +1,41 @@
 "use client";
 
 import ScrollReveal from "./ScrollReveal";
+import type { MenuItem } from "@/lib/types";
+import { getImageUrl } from "@/lib/supabase/helpers";
 
-const MENU_ITEMS = [
+const FALLBACK_ITEMS: MenuItem[] = [
   {
-    id: 2,
-    title: "Jerk Chicken",
-    titleJa: "ジャークチキン",
-    desc: "ジャマイカの伝統料理。数種のスパイスに漬け込んだ鶏肉を炭火でじっくり焼き上げた看板メニュー。",
-    tag: "Signature",
+    id: "fallback-1", title: "Jerk Chicken", title_ja: "ジャークチキン",
+    description: "ジャマイカの伝統料理。数種のスパイスに漬け込んだ鶏肉を炭火でじっくり焼き上げた看板メニュー。",
+    tag: "Signature", price: null, image_path: null, sort_order: 1, is_visible: true, created_at: "", updated_at: "",
   },
   {
-    id: 3,
-    title: "Spice Tacos",
-    titleJa: "スパイスタコス",
-    desc: "カレー屋ならではのスパイス使いで仕上げた、ここだけのタコス。",
-    tag: "Signature",
+    id: "fallback-2", title: "Spice Tacos", title_ja: "スパイスタコス",
+    description: "カレー屋ならではのスパイス使いで仕上げた、ここだけのタコス。",
+    tag: "Signature", price: null, image_path: null, sort_order: 2, is_visible: true, created_at: "", updated_at: "",
   },
   {
-    id: 4,
-    title: "Spice Appetizers",
-    titleJa: "スパイスおつまみ",
-    desc: "お酒に合うスパイス仕立ての一品料理をアラカルト形式で多数ご用意。",
-    tag: "A la carte",
+    id: "fallback-3", title: "Spice Appetizers", title_ja: "スパイスおつまみ",
+    description: "お酒に合うスパイス仕立ての一品料理をアラカルト形式で多数ご用意。",
+    tag: "A la carte", price: null, image_path: null, sort_order: 3, is_visible: true, created_at: "", updated_at: "",
   },
   {
-    id: 5,
-    title: "Craft Drinks",
-    titleJa: "ドリンク",
-    desc: "スパイス料理に合う厳選のお酒。ビール、ハイボール、スパイスカクテルなど。",
-    tag: "Drinks",
+    id: "fallback-4", title: "Craft Drinks", title_ja: "ドリンク",
+    description: "スパイス料理に合う厳選のお酒。ビール、ハイボール、スパイスカクテルなど。",
+    tag: "Drinks", price: null, image_path: null, sort_order: 4, is_visible: true, created_at: "", updated_at: "",
   },
 ];
 
-export default function MenuSection() {
+type Props = {
+  menuItems?: MenuItem[];
+};
+
+export default function MenuSection({ menuItems }: Props) {
+  const items = menuItems && menuItems.length > 0 ? menuItems : FALLBACK_ITEMS;
+  const heroItem = items[0];
+  const restItems = items.slice(1);
+
   return (
     <section id="menu" className="py-20 sm:py-32 md:py-44 bg-surface-alt">
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 md:px-14">
@@ -55,8 +57,8 @@ export default function MenuSection() {
           <div className="group relative rounded-xl sm:rounded-2xl overflow-hidden bg-text-primary">
             <div className="aspect-[16/9] sm:aspect-[21/9] overflow-hidden">
               <img
-                src="/images/2.png"
-                alt="ジャークチキン"
+                src={heroItem.image_path ? getImageUrl(heroItem.image_path) : "/images/2.png"}
+                alt={heroItem.title_ja}
                 className="w-full h-full object-cover opacity-80 group-hover:opacity-90 group-hover:scale-105 transition-all duration-1000"
               />
             </div>
@@ -64,31 +66,31 @@ export default function MenuSection() {
             <div className="absolute inset-0 flex items-end p-5 sm:p-8 md:p-12">
               <div>
                 <span className="inline-block text-[10px] font-semibold tracking-[0.15em] uppercase text-brand-yellow bg-brand-yellow/15 px-3 py-1 rounded-full mb-3">
-                  {MENU_ITEMS[0].tag}
+                  {heroItem.tag}
                 </span>
                 <h3 className="text-white text-[clamp(22px,4vw,42px)] font-black tracking-tight leading-tight">
-                  {MENU_ITEMS[0].title}
+                  {heroItem.title}
                 </h3>
                 <p className="text-white/50 text-[12px] sm:text-[13px] mt-1 mb-2">
-                  {MENU_ITEMS[0].titleJa}
+                  {heroItem.title_ja}
                 </p>
                 <p className="text-white/60 text-[13px] sm:text-[14px] leading-relaxed max-w-md hidden sm:block">
-                  {MENU_ITEMS[0].desc}
+                  {heroItem.description}
                 </p>
               </div>
             </div>
           </div>
         </ScrollReveal>
 
-        {/* Remaining 3 cards — asymmetric grid */}
+        {/* Remaining cards — asymmetric grid */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
-          {MENU_ITEMS.slice(1).map((item, i) => (
+          {restItems.map((item, i) => (
             <ScrollReveal key={item.id} delay={i * 0.1}>
               <div className="group bg-surface rounded-xl sm:rounded-2xl overflow-hidden border border-border hover:shadow-xl transition-all duration-700 hover:-translate-y-1 h-full flex flex-col">
                 <div className="aspect-[4/3] overflow-hidden">
                   <img
-                    src={`/images/${item.id}.png`}
-                    alt={item.titleJa}
+                    src={item.image_path ? getImageUrl(item.image_path) : `/images/${item.sort_order + 1}.png`}
+                    alt={item.title_ja}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
                   />
                 </div>
@@ -99,9 +101,9 @@ export default function MenuSection() {
                   <h3 className="text-[16px] sm:text-[18px] font-bold tracking-tight mb-0.5">
                     {item.title}
                   </h3>
-                  <p className="text-text-tertiary text-[11px] mb-2">{item.titleJa}</p>
+                  <p className="text-text-tertiary text-[11px] mb-2">{item.title_ja}</p>
                   <p className="text-text-secondary text-[12px] sm:text-[13px] leading-relaxed flex-1">
-                    {item.desc}
+                    {item.description}
                   </p>
                 </div>
               </div>

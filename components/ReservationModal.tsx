@@ -46,6 +46,8 @@ export default function ReservationModal({ isOpen, onClose }: Props) {
   const [email, setEmail] = useState("");
   const [note, setNote] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const dateOptions = getDateOptions(30);
 
@@ -90,9 +92,33 @@ export default function ReservationModal({ isOpen, onClose }: Props) {
     if (validate()) setStep("confirm");
   };
 
-  const handleConfirm = () => {
-    // ここで実際の送信処理を行う（API呼び出し等）
-    setStep("done");
+  const handleConfirm = async () => {
+    setIsSubmitting(true);
+    setSubmitError(null);
+    try {
+      const res = await fetch("/api/reservations", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          date,
+          time,
+          guest_count: Number(guests),
+          name: name.trim(),
+          phone: phone.trim(),
+          email: email.trim(),
+          note: note.trim() || undefined,
+        }),
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "予約の送信に失敗しました");
+      }
+      setStep("done");
+    } catch (err) {
+      setSubmitError(err instanceof Error ? err.message : "予約の送信に失敗しました");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const selectedDateLabel = dateOptions.find((o) => o.value === date)?.label || "";
@@ -283,6 +309,11 @@ export default function ReservationModal({ isOpen, onClose }: Props) {
                 <p>※ 予約はオーナー確認後に確定となります。</p>
                 <p>※ 確定メールをお送りいたします。</p>
               </div>
+              {submitError && (
+                <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-[12px] text-red-600">
+                  {submitError}
+                </div>
+              )}
             </div>
           )}
 
@@ -326,9 +357,10 @@ export default function ReservationModal({ isOpen, onClose }: Props) {
               </button>
               <button
                 onClick={handleConfirm}
-                className="flex-[2] h-12 bg-brand-yellow text-brand-green-dark text-[14px] font-bold rounded-xl hover:bg-brand-yellow-dark transition-colors"
+                disabled={isSubmitting}
+                className="flex-[2] h-12 bg-brand-yellow text-brand-green-dark text-[14px] font-bold rounded-xl hover:bg-brand-yellow-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                予約を確定する
+                {isSubmitting ? "送信中..." : "予約を確定する"}
               </button>
             </div>
           )}
