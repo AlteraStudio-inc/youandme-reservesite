@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-yellow: #F2C744;
+  --color-brand-yellow-light: #FFF8E1;
+  --color-brand-yellow-dark: #D4A81E;
+  --color-brand-green: #2D6A4F;
+  --color-brand-green-light: #40916C;
+  --color-brand-green-dark: #1B4332;
+  --color-surface: #FAFAF8;
+  --color-surface-alt: #F2F1ED;
+  --color-text-primary: #1A1A1A;
+  --color-text-secondary: #6B6B6B;
+  --color-text-tertiary: #9A9A9A;
+  --color-border: #E5E5E0;
+  --font-sans: "Inter", "Noto Sans JP", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-brand-yellow);
+  color: var(--color-text-primary);
+}
+
+:target { scroll-margin-top: 72px; }
+
+/* ===== Hero Ken Burns ===== */
+@keyframes kenburns {
+  0% { transform: scale(1.05); }
+  100% { transform: scale(1.15); }
+}
+
+.hero-img {
+  animation: kenburns 20s ease-out forwards;
+  will-change: transform;
+}
+
+/* ===== Marquee ===== */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  animation: marquee 40s linear infinite;
+}
+
+/* ===== Scroll line ===== */
+@keyframes slideDown {
+  0% { transform: translateY(-100%); }
+  50% { transform: translateY(100%); }
+  100% { transform: translateY(100%); }
+}
+
+/* ===== Safe vh ===== */
+.h-screen-safe { height: 100vh; height: 100dvh; }
+
+/* ===== Placeholder ===== */
+.img-placeholder {
+  display: flex; align-items: center; justify-content: center;
+  background: #E8E8E4; color: #999; position: relative; overflow: hidden;
+}
+.img-placeholder::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(0,0,0,0.02) 0%, rgba(0,0,0,0.06) 100%);
+}
+.img-placeholder span {
+  position: relative; z-index: 1; background: rgba(255,255,255,0.85);
+  padding: 6px 16px; border-radius: 6px; font-family: "Inter", monospace; font-size: 13px;
+}
+
+/* ===== Horizontal rule accent ===== */
+.hr-accent {
+  width: 48px; height: 2px; background: var(--color-brand-yellow); border: none; border-radius: 1px;
+}
+
+/* ===== Reduced motion ===== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
