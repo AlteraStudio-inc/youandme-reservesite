@@ -1,13 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 const NAV_ITEMS = [
-  { label: "About", href: "#about" },
-  { label: "Menu", href: "#menu" },
-  { label: "Info", href: "#info" },
-  { label: "Access", href: "#access" },
-  { label: "Reserve", href: "#reserve" },
+  { label: "About", href: "#about", isPage: false },
+  { label: "Menu", href: "/menu", isPage: true },
+  { label: "Info", href: "#info", isPage: false },
+  { label: "Access", href: "#access", isPage: false },
+  { label: "Reserve", href: "#reserve", isPage: false },
 ];
 
 export default function Header({ onReserve }: { onReserve?: () => void }) {
@@ -60,18 +61,30 @@ export default function Header({ onReserve }: { onReserve?: () => void }) {
 
           {/* Desktop nav */}
           <nav className="hidden lg:flex items-center gap-10">
-            {NAV_ITEMS.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                onClick={(e) => { e.preventDefault(); scrollTo(item.href); }}
-                className={`text-[13px] font-medium tracking-wide transition-colors duration-500 hover:opacity-70 ${
-                  scrolled ? "text-text-secondary" : "text-white/80"
-                }`}
-              >
-                {item.label}
-              </a>
-            ))}
+            {NAV_ITEMS.map((item) =>
+              item.isPage ? (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`text-[13px] font-medium tracking-wide transition-colors duration-500 hover:opacity-70 ${
+                    scrolled ? "text-text-secondary" : "text-white/80"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              ) : (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  onClick={(e) => { e.preventDefault(); scrollTo(item.href); }}
+                  className={`text-[13px] font-medium tracking-wide transition-colors duration-500 hover:opacity-70 ${
+                    scrolled ? "text-text-secondary" : "text-white/80"
+                  }`}
+                >
+                  {item.label}
+                </a>
+              )
+            )}
           </nav>
 
           {/* CTA */}
@@ -105,17 +118,29 @@ export default function Header({ onReserve }: { onReserve?: () => void }) {
       <div className={`fixed inset-0 z-[100] bg-white transition-all duration-500 ${menuOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}`}>
         <div className="flex flex-col justify-center h-full px-6 sm:px-8">
           <nav className="flex flex-col gap-1">
-            {NAV_ITEMS.map((item, i) => (
-              <a
-                key={item.href}
-                href={item.href}
-                onClick={(e) => { e.preventDefault(); scrollTo(item.href); }}
-                className="text-[28px] sm:text-[36px] font-extrabold tracking-tight text-text-primary hover:text-brand-green transition-colors py-3 border-b border-border"
-                style={{ transitionDelay: menuOpen ? `${i * 40 + 80}ms` : "0ms" }}
-              >
-                {item.label}
-              </a>
-            ))}
+            {NAV_ITEMS.map((item, i) =>
+              item.isPage ? (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => { setMenuOpen(false); document.body.style.overflow = ""; }}
+                  className="text-[28px] sm:text-[36px] font-extrabold tracking-tight text-text-primary hover:text-brand-green transition-colors py-3 border-b border-border"
+                  style={{ transitionDelay: menuOpen ? `${i * 40 + 80}ms` : "0ms" }}
+                >
+                  {item.label}
+                </Link>
+              ) : (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  onClick={(e) => { e.preventDefault(); scrollTo(item.href); }}
+                  className="text-[28px] sm:text-[36px] font-extrabold tracking-tight text-text-primary hover:text-brand-green transition-colors py-3 border-b border-border"
+                  style={{ transitionDelay: menuOpen ? `${i * 40 + 80}ms` : "0ms" }}
+                >
+                  {item.label}
+                </a>
+              )
+            )}
           </nav>
           <div className="mt-10 text-text-tertiary text-[13px] space-y-1.5">
             <p>092-600-9969</p>

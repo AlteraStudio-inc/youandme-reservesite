@@ -72,7 +72,7 @@ export default function Hero({ onReserve }: { onReserve?: () => void }) {
                   </svg>
                 </button>
                 <a
-                  href="#menu"
+                  href="/menu"
                   className="inline-flex items-center gap-2 text-white/80 text-[13px] font-medium px-6 sm:px-8 py-3 sm:py-3.5 rounded-full border border-white/20 hover:bg-white/10 hover:border-white/40 transition-all duration-500"
                 >
                   Menu
