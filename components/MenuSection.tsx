@@ -35,7 +35,8 @@ type Props = {
 };
 
 export default function MenuSection({ menuItems }: Props) {
-  const items = menuItems && menuItems.length > 0 ? menuItems : FALLBACK_ITEMS;
+  const allItems = menuItems && menuItems.length > 0 ? menuItems : FALLBACK_ITEMS;
+  const items = allItems.slice(0, 4);
   const heroItem = items[0];
   const restItems = items.slice(1);
 
