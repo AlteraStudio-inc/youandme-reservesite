@@ -2,6 +2,8 @@ import { supabaseAdmin } from "@/lib/supabase/server";
 import ReservationTable from "@/components/admin/ReservationTable";
 import type { Reservation } from "@/lib/types";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminReservationsPage() {
   const { data, error } = await supabaseAdmin
     .from("reservations")

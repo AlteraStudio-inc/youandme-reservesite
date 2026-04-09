@@ -2,6 +2,8 @@ import { supabaseAdmin } from "@/lib/supabase/server";
 import MenuManager from "@/components/admin/MenuManager";
 import type { MenuItem } from "@/lib/types";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminMenuPage() {
   const { data, error } = await supabaseAdmin
     .from("menu_items")

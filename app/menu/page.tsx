@@ -7,6 +7,8 @@ export const metadata = {
   description: "you&me curryのメニュー一覧。スパイス居酒屋ならではの料理・ドリンクをカテゴリ別にご覧いただけます。",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function MenuPage() {
   const { data: menuItems } = await supabaseAdmin
     .from("menu_items")

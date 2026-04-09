@@ -4,6 +4,8 @@ import { supabaseAdmin } from "@/lib/supabase/server";
 import { getImageUrl } from "@/lib/supabase/helpers";
 import type { Metadata } from "next";
 
+export const dynamic = "force-dynamic";
+
 type Props = {
   params: Promise<{ id: string }>;
 };
