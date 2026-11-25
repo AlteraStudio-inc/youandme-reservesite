@@ -1,6 +1,6 @@
 /** 写真の三連（PC）／一枚（スマホ）に、縦書きのひとこと */
 const SHOTS = [
-  { src: "/photos/stall-dusk.jpg", alt: "日暮れどき、ビルの前で灯りがともった屋台 El Bajon", pos: "50% 55%" },
+  { src: "/photos/stall-front.jpg", alt: "正面から見た屋台 El Bajon。天井には青空と雲が描かれている", pos: "50% 50%" },
   { src: "/photos/jerk-chicken.jpg", alt: "炭火で焼いたジャークチキン", pos: "50% 50%" },
   { src: "/photos/ramen.jpg", alt: "チャーシューと紅しょうがをのせた豚骨ラーメン", pos: "50% 50%" },
 ];

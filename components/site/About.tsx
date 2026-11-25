@@ -1,13 +1,12 @@
 import { SITE } from "@/lib/site";
-import YataiIllustration from "./YataiIllustration";
 import Reveal from "./Reveal";
 
 const MOSAIC = [
-  { src: "/photos/stall-front.jpg", alt: "正面から見た屋台。天井には青空と雲が描かれている", cls: "col-span-2 row-span-2 lg:col-span-1" },
-  { src: "/photos/tacos-poster.jpg", alt: "パストールとジャメキシカン、2種のタコスの告知", cls: "" },
+  { src: "/photos/tacos-poster.jpg", alt: "パストールとジャメキシカン、2種のタコスの告知", cls: "row-span-2" },
   { src: "/photos/oven-dish.jpg", alt: "こんがり焼き上げた一皿", cls: "" },
-  { src: "/photos/jerk-chicken.jpg", alt: "炭火で焼いたジャークチキン", cls: "lg:col-span-2" },
   { src: "/photos/ramen.jpg", alt: "豚骨ラーメン", cls: "" },
+  { src: "/photos/stall-front.jpg", alt: "正面から見た屋台。天井には青空と雲が描かれている", cls: "" },
+  { src: "/photos/jerk-chicken.jpg", alt: "炭火で焼いたジャークチキン", cls: "lg:col-span-2" },
 ];
 
 export default function About() {
@@ -47,10 +46,20 @@ export default function About() {
         </Reveal>
       </div>
 
-      {/* 屋台のイラスト */}
-      <div className="mx-auto -mt-6 max-w-[620px] px-2 sm:-mt-10">
-        <YataiIllustration className="h-auto w-full" />
-      </div>
+      {/* 屋台の実写（日暮れどき）。四辺を朱と墨の背景へ溶かす */}
+      <Reveal as="figure" className="mx-auto mt-2 max-w-[1040px] sm:mt-0">
+        <img
+          src="/photos/stall-dusk.jpg"
+          alt="日暮れどき、天神・日銀前のビルの前で灯りがともった屋台 El Bajon。木のカウンターに白いスツールが並ぶ"
+          width={1440}
+          height={1080}
+          loading="lazy"
+          className="fade-edges block h-auto w-full"
+        />
+        <figcaption className="-mt-6 text-center text-[12px] font-bold tracking-[0.14em] text-paper/70 sm:-mt-10">
+          日暮れどきの El Bajon（天神・日銀前）
+        </figcaption>
+      </Reveal>
 
       {/* 30か国 */}
       <Reveal className="mx-auto mt-4 flex max-w-[1120px] flex-wrap items-center justify-center gap-x-6 gap-y-3 px-4 pb-12 sm:px-8 lg:pb-16">

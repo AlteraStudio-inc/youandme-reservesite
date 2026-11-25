@@ -29,20 +29,6 @@
   --color-mute: oklch(72% 0.012 70);
   --color-line: oklch(36% 0.012 60);
 
-  /* 屋台イラスト用 */
-  --color-night: oklch(16% 0.03 268);
-  --color-night-3: oklch(25% 0.04 268);
-  --color-lamp: oklch(85% 0.14 82);
-  --color-lamp-deep: oklch(72% 0.15 68);
-  --color-lamp-ink: oklch(22% 0.04 60);
-  --color-sky: oklch(74% 0.09 232);
-  --color-cloud: oklch(97% 0.01 240);
-  --color-timber: oklch(52% 0.075 58);
-  --color-timber-dark: oklch(38% 0.06 50);
-  --color-rule: oklch(32% 0.04 268);
-  --color-ink: oklch(95% 0.018 85);
-  --color-ink-2: oklch(80% 0.022 85);
-  --color-ink-3: oklch(64% 0.03 268);
 
   --font-brush: "Yuji Boku", "Shippori Mincho B1", serif;
   --font-serif: "Shippori Mincho B1", "Yu Mincho", "Hiragino Mincho ProN", serif;
@@ -122,18 +108,18 @@ h1, h2, h3 {
 @keyframes slowzoom { from { transform: scale(1.02); } to { transform: scale(1.1); } }
 .slowzoom { animation: slowzoom 18s var(--ease-out) forwards; }
 
-/* 屋台イラスト */
-@keyframes sway { 0%, 100% { transform: rotate(-2.5deg); } 50% { transform: rotate(2.5deg); } }
-.lantern { transform-box: fill-box; transform-origin: 50% 0%; animation: sway 5.5s var(--ease-in-out) infinite; }
-.lantern-b { animation-duration: 6.4s; animation-delay: -2s; }
-@keyframes steam { 0% { transform: translateY(6px); opacity: 0; } 30% { opacity: 0.7; } 100% { transform: translateY(-26px); opacity: 0; } }
-.steam { animation: steam 3.6s var(--ease-out) infinite; }
-.steam-2 { animation-delay: -1.2s; }
-.steam-3 { animation-delay: -2.4s; }
-@keyframes twinkle { 0%, 100% { opacity: 0.25; } 50% { opacity: 0.9; } }
-.twinkle { animation: twinkle 4s var(--ease-in-out) infinite; }
-@keyframes glow { 0%, 100% { opacity: 0.85; } 50% { opacity: 1; } }
-.glow { animation: glow 3.2s var(--ease-in-out) infinite; }
+
+/* 写真の四辺を背景に溶かす */
+.fade-edges {
+  -webkit-mask-image:
+    linear-gradient(to bottom, transparent 0%, #000 14%, #000 72%, transparent 100%),
+    linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to bottom, transparent 0%, #000 14%, #000 72%, transparent 100%),
+    linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%);
+  mask-composite: intersect;
+}
 
 /* 地図を少し落ち着いた色に */
 .map-sepia { filter: grayscale(0.6) sepia(0.25) contrast(0.95); }
@@ -153,7 +139,7 @@ h1, h2, h3 {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .lantern, .steam, .twinkle, .glow, .slowzoom { animation: none !important; }
+  .slowzoom { animation: none !important; }
   .reveal { transform: none; transition: opacity 150ms linear; }
   *, *::before, *::after { transition-duration: 150ms !important; }
 }
