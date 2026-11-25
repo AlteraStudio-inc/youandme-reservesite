@@ -117,12 +117,126 @@ export const ROUTE: Stop[] = [
 export const ALSO = ["めんたいバタートースト", "おでん", "デザートクレープ"];
 
 /** /menu ページのカテゴリ（menu_items.tag の値 → 表示名） */
-export const CATEGORIES: { tag: string; label: string }[] = [
-  { tag: "Tacos", label: "タコス" },
-  { tag: "World", label: "世界のひと皿" },
-  { tag: "Hakata", label: "博多" },
-  { tag: "Sweets", label: "〆と甘いもの" },
-  { tag: "Drinks", label: "ドリンク" },
+export const CATEGORIES: { tag: string; label: string; en: string; lead: string }[] = [
+  { tag: "Tacos", label: "タコス", en: "Tacos", lead: "本場メキシコで学んだ味。どちらも数量限定です。" },
+  { tag: "World", label: "世界のひと皿", en: "World plates", lead: "店主が旅先で出会った、各国の“うまいもの”。" },
+  { tag: "Hakata", label: "博多の味", en: "Hakata", lead: "博多の屋台らしい定番と、明太子を使ったオリジナル。" },
+  { tag: "Sweets", label: "甘いもの", en: "Sweets", lead: "食後にもう一品。" },
+  { tag: "Drinks", label: "ドリンク", en: "Drinks", lead: "料理に合わせて。" },
+];
+
+/** 品書きの一品（DBの menu_items と、下の静的な品書きを同じ形で扱う） */
+export type Dish = {
+  id: string;
+  name: string;
+  en?: string;
+  origin?: string;
+  tag: string;
+  price?: number | null;
+  description?: string | null;
+  photo?: { src: string; alt: string; kind?: "photo" | "poster" };
+  limited?: boolean;
+  fuda?: string[];
+};
+
+/**
+ * DB（menu_items）が空・未接続のときに表示する品書き。
+ * 内容と価格は Instagram の投稿で公表されているものだけ（価格はタコス2種のみ）。
+ * DB に登録すると、そちらが優先されます（supabase/seed-el-bajon.sql と同じ内容）。
+ */
+export const MENU: Dish[] = [
+  {
+    id: "tacos-al-pastor",
+    name: "タコス アル・パストール",
+    fuda: ["タコス", "アル・パストール"],
+    en: "Tacos al Pastor",
+    origin: "メキシコ",
+    tag: "Tacos",
+    price: 680,
+    limited: true,
+    description:
+      "スパイスで丁寧にマリネした豚肉とパイナップルを重ね、本場にならって炭火でロースト。焼き上がりを細かく削ぎ切りにして、トルティーヤにのせます。",
+    photo: { src: "/photos/tacos-poster.jpg", alt: "パストールとジャメキシカン、2種のタコスの告知", kind: "poster" },
+  },
+  {
+    id: "jamexican",
+    name: "ジャメキシカン",
+    en: "Jamexican",
+    origin: "ジャマイカ × メキシコ",
+    tag: "Tacos",
+    price: 680,
+    limited: true,
+    description: "看板のジャークチキンで作る、ジャマイカで流行中のタコス。スパイシー好きの方はぜひ。",
+  },
+  {
+    id: "jerk-chicken",
+    name: "ジャークチキン",
+    en: "Jerk Chicken",
+    origin: "ジャマイカ",
+    tag: "World",
+    description: "店の看板メニュー。数種のスパイスに漬け込んだ鶏肉を、香ばしく焼き上げます。",
+    photo: { src: "/photos/jerk-chicken.jpg", alt: "焼き目のついたジャークチキン" },
+  },
+  {
+    id: "crepe-salee",
+    name: "クレープ・サレ",
+    en: "Crêpe Salée",
+    origin: "南フランス",
+    tag: "World",
+    description: "南仏の家庭の味を再現。ハム・チーズ・卵を、生地からこだわったクレープで包みます。軽いのに満足感のある一品。",
+  },
+  {
+    id: "ajillo",
+    name: "アヒージョ",
+    en: "Ajillo",
+    origin: "スペイン",
+    tag: "World",
+    description: "オリーブオイルとにんにくで仕上げる、スペインの小皿料理。",
+  },
+  {
+    id: "cheese-cracker",
+    name: "カリカリチーズせんべい",
+    en: "Crispy Cheese Cracker",
+    origin: "オランダ × 博多",
+    tag: "Hakata",
+    fuda: ["カリカリ", "チーズせんべい"],
+    description: "オランダ産チーズを焼き、明太子の風味を重ねたおつまみ。お酒と一緒に頼まれることの多い一品です。",
+  },
+  {
+    id: "mentai-toast",
+    name: "めんたいバタートースト",
+    en: "Mentai Butter Toast",
+    origin: "博多",
+    tag: "Hakata",
+    fuda: ["めんたい", "バタートースト"],
+    description: "明太子とバターのトースト。〆や、軽い一品に。",
+  },
+  {
+    id: "oden",
+    name: "おでん",
+    en: "Oden",
+    origin: "博多",
+    tag: "Hakata",
+    description: "屋台らしさと遊び心を詰めた、El Bajon のおでん。",
+  },
+  {
+    id: "tonkotsu-ramen",
+    name: "豚骨ラーメン",
+    en: "Tonkotsu Ramen",
+    origin: "博多",
+    tag: "Hakata",
+    description: "世界を回って、最後は地元へ。博多の屋台らしい一杯。",
+    photo: { src: "/photos/ramen.jpg", alt: "チャーシューと紅しょうがをのせた豚骨ラーメン" },
+  },
+  {
+    id: "dessert-crepe",
+    name: "デザートクレープ",
+    en: "Dessert Crêpe",
+    origin: "フランス",
+    tag: "Sweets",
+    fuda: ["デザート", "クレープ"],
+    description: "食後の甘いものに。",
+  },
 ];
 
 export function categoryLabel(tag: string | null) {

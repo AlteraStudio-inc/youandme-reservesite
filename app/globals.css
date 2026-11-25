@@ -42,7 +42,7 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
-  background: var(--color-sumi);
+  background: var(--color-sumi-2);
 }
 
 body {
