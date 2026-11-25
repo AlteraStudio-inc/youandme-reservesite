@@ -1,7 +1,7 @@
 import AdminSidebar from "@/components/admin/AdminSidebar";
 
 export const metadata = {
-  title: "管理画面 | you&me curry",
+  title: "管理画面 | El Bajon",
 };
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

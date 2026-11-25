@@ -12,30 +12,6 @@ export type MenuItem = {
   updated_at: string;
 };
 
-export type Reservation = {
-  id: string;
-  date: string;
-  time: string;
-  guest_count: number;
-  name: string;
-  phone: string;
-  email: string;
-  note: string | null;
-  status: "pending" | "confirmed" | "rejected";
-  created_at: string;
-  updated_at: string;
-};
-
-export type ReservationInput = {
-  date: string;
-  time: string;
-  guest_count: number;
-  name: string;
-  phone: string;
-  email: string;
-  note?: string;
-};
-
 export type MenuItemInput = {
   title: string;
   title_ja: string;

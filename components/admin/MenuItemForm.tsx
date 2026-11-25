@@ -5,13 +5,14 @@ import { useRouter } from "next/navigation";
 import type { MenuItem } from "@/lib/types";
 import { getImageUrl } from "@/lib/supabase/helpers";
 import ImageUploader from "./ImageUploader";
+import { CATEGORIES } from "@/lib/site";
 
 type Props = {
   item?: MenuItem | null;
   onClose: () => void;
 };
 
-const TAG_OPTIONS = ["Signature", "A la carte", "Drinks", ""];
+const TAG_OPTIONS = CATEGORIES;
 
 export default function MenuItemForm({ item, onClose }: Props) {
   const router = useRouter();
@@ -153,8 +154,8 @@ export default function MenuItemForm({ item, onClose }: Props) {
                 className="w-full h-10 px-3 rounded-lg border border-gray-200 text-[13px] bg-white focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500/20"
               >
                 <option value="">なし</option>
-                {TAG_OPTIONS.filter(Boolean).map((t) => (
-                  <option key={t} value={t}>{t}</option>
+                {TAG_OPTIONS.map((c) => (
+                  <option key={c.tag} value={c.tag}>{c.label}（{c.tag}）</option>
                 ))}
               </select>
             </div>

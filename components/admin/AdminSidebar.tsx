@@ -6,16 +6,6 @@ import { useState } from "react";
 
 const NAV_ITEMS = [
   {
-    href: "/admin/reservations",
-    label: "予約管理",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 18 18" fill="none">
-        <rect x="2" y="3" width="14" height="13" rx="2" stroke="currentColor" strokeWidth="1.3"/>
-        <path d="M2 7h14M6 1v4M12 1v4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
-      </svg>
-    ),
-  },
-  {
     href: "/admin/menu",
     label: "メニュー管理",
     icon: (
@@ -53,7 +43,7 @@ export default function AdminSidebar() {
           <p className="text-[14px] font-bold text-gray-900 truncate">
             {currentPage?.label ?? "管理画面"}
           </p>
-          <p className="text-[10px] text-gray-400">you&me curry</p>
+          <p className="text-[10px] text-gray-400">El Bajon</p>
         </div>
         <Link
           href="/"
@@ -78,7 +68,7 @@ export default function AdminSidebar() {
       >
         <div className="h-14 flex items-center px-5 border-b border-gray-200 shrink-0">
           <Link href="/admin" className="text-[13px] font-bold text-gray-900">
-            you&me curry
+            El Bajon
             <span className="text-[10px] font-normal text-gray-400 ml-1.5">管理画面</span>
           </Link>
         </div>

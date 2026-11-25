@@ -1,14 +1,23 @@
-import { supabaseAdmin } from "@/lib/supabase/server";
-import HomeClient from "./HomeClient";
+import SiteHeader from "@/components/site/SiteHeader";
+import Hero from "@/components/site/Hero";
+import Snapshot from "@/components/site/Snapshot";
+import Route from "@/components/site/Route";
+import Story from "@/components/site/Story";
+import Visit from "@/components/site/Visit";
+import SiteFooter from "@/components/site/SiteFooter";
 
-export const dynamic = "force-dynamic";
-
-export default async function Home() {
-  const { data: menuItems } = await supabaseAdmin
-    .from("menu_items")
-    .select("*")
-    .eq("is_visible", true)
-    .order("sort_order");
-
-  return <HomeClient menuItems={menuItems ?? []} />;
+export default function Home() {
+  return (
+    <>
+      <SiteHeader />
+      <main>
+        <Hero />
+        <Snapshot />
+        <Route />
+        <Story />
+        <Visit />
+      </main>
+      <SiteFooter />
+    </>
+  );
 }

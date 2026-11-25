@@ -1,28 +1,33 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "you&me curry | スパイス居酒屋 - 福岡 春吉",
+  title: "El Bajon エル・バホン | 天神・日銀前の屋台",
   description:
-    "福岡・春吉のスパイス居酒屋 you&me curry。ジャークチキン、タコスなど本格スパイス料理とお酒を楽しめる夜の空間。18:00〜24:00 火曜定休。",
+    "福岡・天神、日本銀行福岡支店前の屋台 El Bajon（エル・バホン）。世界30か国以上を食べ歩いた店主が、タコス アル・パストールやジャークチキン、クレープ・サレなど旅先の味を屋台で。18:00頃〜23:00・不定休・雨天休業。",
+  openGraph: {
+    title: "El Bajon エル・バホン | 天神・日銀前の屋台",
+    description: "The restaurant on the street — 世界の“うまいもの”を、天神の路上で。",
+    images: ["/photos/stall-dusk.jpg"],
+    locale: "ja_JP",
+    type: "website",
+  },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export const viewport: Viewport = {
+  themeColor: "#0d1020",
+  width: "device-width",
+  initialScale: 1,
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ja">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+JP:wght@300;400;500;600;700;900&display=swap"
+          href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Dela+Gothic+One&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap"
           rel="stylesheet"
         />
       </head>
