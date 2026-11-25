@@ -25,13 +25,13 @@ export default function MenuClient({ items }: { items: MenuItem[] }) {
 
   if (items.length === 0) {
     return (
-      <div className="mt-14 rounded-[6px] border border-dashed border-rule px-6 py-12 text-center">
-        <p className="text-[15px] text-ink-2">ただいま品書きを準備中です。</p>
+      <div className="mt-14 border border-dashed border-sumi/20 px-6 py-12 text-center">
+        <p className="text-[15px] text-sumi/80">ただいま品書きを準備中です。</p>
         <a
           href={SITE.instagram.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-4 inline-block text-[14px] font-bold text-lamp underline decoration-2 underline-offset-[6px]"
+          className="mt-4 inline-block text-[14px] font-bold text-shu-deep underline decoration-2 underline-offset-[6px]"
         >
           最新のメニューはInstagramで
         </a>
@@ -55,10 +55,10 @@ export default function MenuClient({ items }: { items: MenuItem[] }) {
                 role="tab"
                 aria-selected={on}
                 onClick={() => setActive(t)}
-                className={`h-10 shrink-0 whitespace-nowrap rounded-full px-5 text-[14px] font-bold transition-colors ${
+                className={`h-10 shrink-0 whitespace-nowrap px-5 text-[14px] font-bold transition-colors ${
                   on
-                    ? "bg-lamp text-lamp-ink"
-                    : "border border-rule text-ink-2 hover:border-ink-3 hover:text-ink"
+                    ? "bg-shu text-paper"
+                    : "border border-sumi/20 text-sumi/80 hover:border-sumi/50 hover:text-sumi"
                 }`}
               >
                 {t === "all" ? "すべて" : categoryLabel(t || null)}
@@ -73,34 +73,34 @@ export default function MenuClient({ items }: { items: MenuItem[] }) {
           <section key={g.tag || "none"} aria-labelledby={`cat-${g.tag || "none"}`}>
             <h2
               id={`cat-${g.tag || "none"}`}
-              className="border-b border-rule pb-3 font-display text-[24px] leading-tight text-lamp sm:text-[28px]"
+              className="border-b border-sumi/20 pb-3 font-brush text-[24px] leading-tight text-shu-deep sm:text-[28px]"
             >
               {categoryLabel(g.tag || null)}
             </h2>
             <ul>
               {g.items.map((item) => (
-                <li key={item.id} className="border-b border-rule/70">
+                <li key={item.id} className="border-b border-sumi/15">
                   <Link
                     href={`/menu/${item.id}`}
                     className="group grid grid-cols-[minmax(0,1fr)_auto] gap-4 py-5 transition-colors sm:gap-6"
                   >
                     <div className="min-w-0">
                       <div className="flex items-baseline gap-3">
-                        <h3 className="min-w-0 text-[17px] font-bold leading-snug text-ink transition-colors group-hover:text-lamp sm:text-[18px]">
+                        <h3 className="min-w-0 text-[17px] font-bold leading-snug text-sumi transition-colors group-hover:text-shu-deep sm:text-[18px]">
                           {item.title_ja}
                         </h3>
                         {item.price != null && (
                           <>
                             <span className="leader" aria-hidden="true" />
-                            <span className="shrink-0 font-mono text-[15px] text-lamp">{yen(item.price)}</span>
+                            <span className="shrink-0 font-bold text-[15px] text-shu-deep">{yen(item.price)}</span>
                           </>
                         )}
                       </div>
                       {item.title && (
-                        <p className="mt-0.5 font-mono text-[12px] tracking-[0.04em] text-ink-3">{item.title}</p>
+                        <p className="mt-0.5 font-bold text-[12px] tracking-[0.04em] text-sumi/60">{item.title}</p>
                       )}
                       {item.description && (
-                        <p className="mt-2 line-clamp-2 max-w-[38em] text-[14px] leading-[1.85] text-ink-2">
+                        <p className="mt-2 line-clamp-2 max-w-[38em] text-[14px] leading-[1.85] text-sumi/80">
                           {item.description}
                         </p>
                       )}
@@ -110,7 +110,7 @@ export default function MenuClient({ items }: { items: MenuItem[] }) {
                         src={getImageUrl(item.image_path)}
                         alt=""
                         loading="lazy"
-                        className="h-20 w-20 rounded-[4px] object-cover ring-1 ring-rule sm:h-24 sm:w-24"
+                        className="h-20 w-20 object-cover ring-1 ring-sumi/15 sm:h-24 sm:w-24"
                       />
                     )}
                   </Link>

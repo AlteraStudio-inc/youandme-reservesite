@@ -28,7 +28,29 @@ export const SITE = {
     "世界あちこちでうまいものをひたすら食べてきましたので、同じものを作ります。",
 } as const;
 
-/** ホームの「旅する献立」に並べる看板料理（Instagram投稿で紹介されているもの） */
+/** お知らせ（Instagramの投稿から。新しい順） */
+export const NEWS: { date: string; tag: string; text: string; href?: string }[] = [
+  {
+    date: "2026.06.25",
+    tag: "メニュー",
+    text: "「タコス アル・パストール」— 本場メキシコで学んだ製法で、スパイスに漬けた豚肉を炭火でローストしています。数量限定です。",
+    href: "https://www.instagram.com/bajon.restaurant_ots/p/DaCSAyCE4s4/",
+  },
+  {
+    date: "2026.06.12",
+    tag: "メニュー",
+    text: "タコス2種「パストール」「ジャメキシカン」各¥680。どちらも数に限りがあるので、売り切れ前にどうぞ。",
+    href: "https://www.instagram.com/bajon.restaurant_ots/p/DZgvMVoTTRA/",
+  },
+  {
+    date: "2026.03.30",
+    tag: "メニュー",
+    text: "南仏の家庭の味「クレープ・サレ」や、明太子を使ったオリジナルのおつまみもご用意しています。",
+    href: "https://www.instagram.com/bajon.restaurant_ots/p/DWiHMP4mHwa/",
+  },
+];
+
+/** ホームの「人気メニュー」に並べる看板料理（Instagram投稿で紹介されているもの） */
 export type Stop = {
   code: string; // 国・地域の略号（スタンプ表示用）
   origin: string; // 料理のルーツ
@@ -37,6 +59,8 @@ export type Stop = {
   price?: number; // 投稿で価格が出ているものだけ
   note: string;
   photo?: { src: string; alt: string; kind?: "photo" | "poster" };
+  /** 木札に縦書きするときの改行（長い名前だけ） */
+  fuda?: string[];
 };
 
 export const ROUTE: Stop[] = [
@@ -72,6 +96,7 @@ export const ROUTE: Stop[] = [
     code: "NLD × HKT",
     origin: "オランダ × 博多",
     name: "カリカリチーズせんべい",
+    fuda: ["カリカリ", "チーズせんべい"],
     note: "オランダ産チーズを焼いて、明太子の風味を重ねたおつまみ。一杯目のお供に。",
   },
   {

@@ -62,22 +62,22 @@ export default function YataiIllustration({ className = "" }: { className?: stri
       <line x1="0" y1="404" x2="520" y2="404" className="stroke-rule" strokeWidth="1" />
 
       {/* 看板 */}
-      <line x1="214" y1="76" x2="214" y2="94" className="stroke-wood-dark" strokeWidth="4" />
-      <line x1="306" y1="76" x2="306" y2="94" className="stroke-wood-dark" strokeWidth="4" />
+      <line x1="214" y1="76" x2="214" y2="94" className="stroke-timber-dark" strokeWidth="4" />
+      <line x1="306" y1="76" x2="306" y2="94" className="stroke-timber-dark" strokeWidth="4" />
       <rect x="180" y="38" width="160" height="40" rx="3" className="fill-night-3 stroke-lamp" strokeWidth="1.5" />
       <text
         x="260"
         y="65"
         textAnchor="middle"
         className="fill-lamp"
-        style={{ fontFamily: "var(--font-display)", fontSize: 21, letterSpacing: "0.02em" }}
+        style={{ fontFamily: "var(--font-brush)", fontSize: 21, letterSpacing: "0.02em" }}
       >
         El Bajon
       </text>
 
       {/* 屋根 */}
-      <polygon points="50,120 470,120 448,92 72,92" className="fill-wood-dark" />
-      <rect x="44" y="116" width="432" height="12" rx="1.5" className="fill-wood" />
+      <polygon points="50,120 470,120 448,92 72,92" className="fill-timber-dark" />
+      <rect x="44" y="116" width="432" height="12" rx="1.5" className="fill-timber" />
 
       {/* 店内 */}
       <g clipPath="url(#insideClip)">
@@ -123,14 +123,14 @@ export default function YataiIllustration({ className = "" }: { className?: stri
       </g>
 
       {/* 柱 */}
-      <rect x="78" y="120" width="9" height="230" className="fill-wood-dark" />
-      <rect x="433" y="120" width="9" height="230" className="fill-wood-dark" />
+      <rect x="78" y="120" width="9" height="230" className="fill-timber-dark" />
+      <rect x="433" y="120" width="9" height="230" className="fill-timber-dark" />
 
       {/* カウンター */}
-      <rect x="58" y="290" width="404" height="13" rx="2" className="fill-wood" />
-      <rect x="70" y="303" width="380" height="80" className="fill-wood-dark" />
+      <rect x="58" y="290" width="404" height="13" rx="2" className="fill-timber" />
+      <rect x="70" y="303" width="380" height="80" className="fill-timber-dark" />
       {slats.map((x) => (
-        <line key={x} x1={x} y1="306" x2={x} y2="380" className="stroke-wood" strokeWidth="5" opacity="0.55" />
+        <line key={x} x1={x} y1="306" x2={x} y2="380" className="stroke-timber" strokeWidth="5" opacity="0.55" />
       ))}
 
       {/* 鍋と湯気 */}
@@ -183,7 +183,7 @@ export default function YataiIllustration({ className = "" }: { className?: stri
             y="179"
             textAnchor="middle"
             className="fill-night"
-            style={{ fontFamily: "var(--font-display)", fontSize: 15 }}
+            style={{ fontFamily: "var(--font-brush)", fontSize: 15 }}
           >
             {label[0]}
           </text>
@@ -192,7 +192,7 @@ export default function YataiIllustration({ className = "" }: { className?: stri
             y="200"
             textAnchor="middle"
             className="fill-night"
-            style={{ fontFamily: "var(--font-display)", fontSize: 15 }}
+            style={{ fontFamily: "var(--font-brush)", fontSize: 15 }}
           >
             {label[1]}
           </text>

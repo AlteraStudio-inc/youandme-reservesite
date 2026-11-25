@@ -1,36 +1,52 @@
-/* Hallmark · macrostructure: Narrative Workflow (route of stops) · tone: late-night street, lantern-lit · anchor hue: lamp amber 80°
- * theme: custom · vibe: "夜の路上、提灯の灯り、旅先の屋台" · paper oklch(16% 0.035 268) · accent oklch(85% 0.14 82)
- * display: Dela Gothic One · body: Zen Kaku Gothic New · outlier: DM Mono
- * axes: dark / display-heavy / warm · nav: N9 edge-aligned + C4 sticky bottom bar · footer: Ft5 statement
+/* Hallmark · macrostructure: Photographic (studied) · tone: 屋台・木と朱と墨 · anchor hue: 朱 27°
+ * theme: studied-DNA (source: mfc-group.jp/yasube — 構成・配色・書体の役割のみ参照、画像・ロゴ・文言は不使用)
+ * paper: wood oklch(24% 0.022 50) / kraft oklch(80% 0.05 75) / white · accent oklch(52% 0.21 27)
+ * display: Yuji Boku（筆） · body: Shippori Mincho B1（明朝）
+ * nav: hanging logo block on wood band · footer: charcoal + logo block
  */
 @import "tailwindcss";
 
 @theme {
-  /* 夜空 */
-  --color-night: oklch(16% 0.035 268);
-  --color-night-2: oklch(20% 0.04 268);
-  --color-night-3: oklch(25% 0.045 268);
-  --color-rule: oklch(32% 0.04 268);
-  /* 文字 */
-  --color-ink: oklch(95% 0.018 85);
-  --color-ink-2: oklch(80% 0.022 85);
-  --color-ink-3: oklch(64% 0.03 268);
-  /* 灯り（主アクセント）と、提灯の朱（スタンプ専用） */
+  /* 木（ヘッダー・メニュー帯） */
+  --color-wood: oklch(24% 0.022 50);
+  --color-wood-2: oklch(30% 0.028 52);
+  --color-wood-seam: oklch(15% 0.015 45);
+  /* 朱（ロゴの札・ボタン） */
+  --color-shu: oklch(52% 0.21 27);
+  --color-shu-hi: oklch(58% 0.22 28);
+  --color-shu-deep: oklch(34% 0.14 25);
+  /* クラフト紙（お知らせ） */
+  --color-kraft: oklch(80% 0.05 75);
+  --color-kraft-2: oklch(74% 0.055 72);
+  /* 木札（品書きの札） */
+  --color-fuda: oklch(76% 0.065 70);
+  --color-fuda-edge: oklch(60% 0.07 60);
+  /* 墨と紙 */
+  --color-sumi: oklch(19% 0.008 60);
+  --color-sumi-2: oklch(26% 0.006 60);
+  --color-paper: oklch(99% 0.003 85);
+  --color-cream: oklch(95% 0.012 85);
+  --color-mute: oklch(72% 0.012 70);
+  --color-line: oklch(36% 0.012 60);
+
+  /* 屋台イラスト用 */
+  --color-night: oklch(16% 0.03 268);
+  --color-night-3: oklch(25% 0.04 268);
   --color-lamp: oklch(85% 0.14 82);
   --color-lamp-deep: oklch(72% 0.15 68);
   --color-lamp-ink: oklch(22% 0.04 60);
-  --color-shu: oklch(63% 0.19 32);
-  --color-shu-deep: oklch(50% 0.17 30);
-  /* 屋台の天井に描かれた青空 */
   --color-sky: oklch(74% 0.09 232);
   --color-cloud: oklch(97% 0.01 240);
-  /* 木 */
-  --color-wood: oklch(52% 0.075 58);
-  --color-wood-dark: oklch(38% 0.06 50);
+  --color-timber: oklch(52% 0.075 58);
+  --color-timber-dark: oklch(38% 0.06 50);
+  --color-rule: oklch(32% 0.04 268);
+  --color-ink: oklch(95% 0.018 85);
+  --color-ink-2: oklch(80% 0.022 85);
+  --color-ink-3: oklch(64% 0.03 268);
 
-  --font-display: "Dela Gothic One", "Zen Kaku Gothic New", sans-serif;
-  --font-sans: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", sans-serif;
-  --font-mono: "DM Mono", ui-monospace, monospace;
+  --font-brush: "Yuji Boku", "Shippori Mincho B1", serif;
+  --font-serif: "Shippori Mincho B1", "Yu Mincho", "Hiragino Mincho ProN", serif;
+  --font-sans: "Shippori Mincho B1", "Yu Mincho", "Hiragino Mincho ProN", serif;
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
@@ -39,15 +55,14 @@
 html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   overflow-x: clip;
-  background: var(--color-night);
+  background: var(--color-sumi);
 }
 
 body {
-  font-family: var(--font-sans);
-  background: var(--color-night);
-  color: var(--color-ink);
+  font-family: var(--font-serif);
+  background: var(--color-paper);
+  color: var(--color-sumi);
   overflow-x: clip;
   font-feature-settings: "palt";
 }
@@ -57,95 +72,88 @@ h1, h2, h3 {
   overflow-wrap: anywhere;
   min-width: 0;
   text-wrap: balance;
-  word-break: auto-phrase; /* 日本語を文節で折り返す（対応ブラウザのみ） */
+  word-break: auto-phrase;
 }
 
-::selection {
-  background: var(--color-lamp);
-  color: var(--color-lamp-ink);
+::selection { background: var(--color-shu); color: var(--color-paper); }
+:target { scroll-margin-top: 96px; }
+:focus-visible { outline: 2px solid var(--color-shu-hi); outline-offset: 3px; }
+
+/* ===== 木の板（縦張り） ===== */
+.wood {
+  background-color: var(--color-wood);
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.9 0.012' numOctaves='3' seed='7'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23g)'/></svg>"),
+    repeating-linear-gradient(90deg,
+      transparent 0 calc(var(--plank, 92px) - 3px),
+      var(--color-wood-seam) calc(var(--plank, 92px) - 3px) var(--plank, 92px)),
+    linear-gradient(90deg, var(--color-wood) 0%, var(--color-wood-2) 35%, var(--color-wood) 60%, var(--color-wood-2) 85%, var(--color-wood) 100%);
+  background-size: 300px 300px, auto, 400px 100%;
 }
 
-:target { scroll-margin-top: 80px; }
-
-:focus-visible {
-  outline: 2px solid var(--color-lamp);
-  outline-offset: 3px;
-  border-radius: 4px;
+/* ===== クラフト紙 ===== */
+.kraft {
+  background-color: var(--color-kraft);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='k'><feTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' seed='3'/><feColorMatrix values='0 0 0 0 0.25  0 0 0 0 0.18  0 0 0 0 0.08  0 0 0 0.16 0'/></filter><rect width='100%' height='100%' filter='url(%23k)'/></svg>");
 }
 
-/* 夜空のざらつき（紙のような粒子） */
-.grain::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.07;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+/* ===== 朱の札から墨へ ===== */
+.shu-fade {
+  background:
+    radial-gradient(120% 70% at 50% 18%, var(--color-shu) 0%, var(--color-shu-deep) 45%, var(--color-sumi) 100%);
 }
 
-/* 提灯のゆれ */
-@keyframes sway {
-  0%, 100% { transform: rotate(-2.5deg); }
-  50% { transform: rotate(2.5deg); }
+/* 縦書き */
+.tate {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-feature-settings: "vpal";
 }
-.lantern {
-  transform-box: fill-box;
-  transform-origin: 50% 0%;
-  animation: sway 5.5s var(--ease-in-out) infinite;
-}
-.lantern-b { animation-duration: 6.4s; animation-delay: -2s; }
-
-/* 湯気 */
-@keyframes steam {
-  0% { transform: translateY(6px); opacity: 0; }
-  30% { opacity: 0.7; }
-  100% { transform: translateY(-26px); opacity: 0; }
-}
-.steam { animation: steam 3.6s var(--ease-out) infinite; }
-.steam-2 { animation-delay: -1.2s; }
-.steam-3 { animation-delay: -2.4s; }
-
-/* 星のまたたき */
-@keyframes twinkle {
-  0%, 100% { opacity: 0.25; }
-  50% { opacity: 0.9; }
-}
-.twinkle { animation: twinkle 4s var(--ease-in-out) infinite; }
-
-/* 灯りの呼吸 */
-@keyframes glow {
-  0%, 100% { opacity: 0.85; }
-  50% { opacity: 1; }
-}
-.glow { animation: glow 3.2s var(--ease-in-out) infinite; }
 
 /* スクロールで現れる */
 .reveal {
   opacity: 0;
-  transform: translateY(18px);
+  transform: translateY(16px);
   transition: opacity 900ms var(--ease-out), transform 900ms var(--ease-out);
 }
 .reveal.is-in { opacity: 1; transform: none; }
 
-/* 地図を夜色に */
-.map-night {
-  filter: invert(0.9) hue-rotate(185deg) saturate(0.6) brightness(0.95) contrast(0.9);
-}
+/* ヒーローのゆっくりズーム */
+@keyframes slowzoom { from { transform: scale(1.02); } to { transform: scale(1.1); } }
+.slowzoom { animation: slowzoom 18s var(--ease-out) forwards; }
+
+/* 屋台イラスト */
+@keyframes sway { 0%, 100% { transform: rotate(-2.5deg); } 50% { transform: rotate(2.5deg); } }
+.lantern { transform-box: fill-box; transform-origin: 50% 0%; animation: sway 5.5s var(--ease-in-out) infinite; }
+.lantern-b { animation-duration: 6.4s; animation-delay: -2s; }
+@keyframes steam { 0% { transform: translateY(6px); opacity: 0; } 30% { opacity: 0.7; } 100% { transform: translateY(-26px); opacity: 0; } }
+.steam { animation: steam 3.6s var(--ease-out) infinite; }
+.steam-2 { animation-delay: -1.2s; }
+.steam-3 { animation-delay: -2.4s; }
+@keyframes twinkle { 0%, 100% { opacity: 0.25; } 50% { opacity: 0.9; } }
+.twinkle { animation: twinkle 4s var(--ease-in-out) infinite; }
+@keyframes glow { 0%, 100% { opacity: 0.85; } 50% { opacity: 1; } }
+.glow { animation: glow 3.2s var(--ease-in-out) infinite; }
+
+/* 地図を少し落ち着いた色に */
+.map-sepia { filter: grayscale(0.6) sepia(0.25) contrast(0.95); }
+
+/* 横スクロールのスクロールバーを隠す */
+.no-bar { scrollbar-width: none; }
+.no-bar::-webkit-scrollbar { display: none; }
 
 /* 品書きの点線リーダー */
 .leader {
   flex: 1;
   min-width: 1.5rem;
-  border-bottom: 1px dotted var(--color-rule);
+  border-bottom: 1px dotted currentColor;
+  opacity: 0.35;
   transform: translateY(-0.35em);
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .lantern, .steam, .twinkle, .glow { animation: none !important; }
+  .lantern, .steam, .twinkle, .glow, .slowzoom { animation: none !important; }
   .reveal { transform: none; transition: opacity 150ms linear; }
-  *, *::before, *::after {
-    transition-duration: 150ms !important;
-  }
+  *, *::before, *::after { transition-duration: 150ms !important; }
 }

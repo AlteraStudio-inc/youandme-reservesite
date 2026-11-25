@@ -51,10 +51,10 @@ export default async function MenuDetailPage({ params }: Props) {
   return (
     <>
       <SiteHeader />
-      <main className="mx-auto max-w-[1080px] px-4 pt-24 pb-20 sm:px-8 sm:pt-32 md:pb-28">
+      <main className="kraft min-h-[70vh] pt-16 lg:pt-[104px]"><div className="mx-auto max-w-[1080px] px-5 pt-8 pb-20 sm:px-8 sm:pt-12 md:pb-28">
         <Link
           href="/menu"
-          className="group -ml-1 inline-flex h-11 items-center gap-1.5 whitespace-nowrap px-1 text-[14px] text-ink-2 transition-colors hover:text-lamp"
+          className="group -ml-1 inline-flex h-11 items-center gap-1.5 whitespace-nowrap px-1 text-[14px] text-sumi/80 transition-colors hover:text-shu-deep"
         >
           <ArrowIcon dir="left" className="h-4 w-4 transition-transform duration-200 group-hover:-translate-x-0.5" />
           品書きにもどる
@@ -68,27 +68,27 @@ export default async function MenuDetailPage({ params }: Props) {
               <img
                 src={getImageUrl(item.image_path)}
                 alt={item.title_ja}
-                className="block aspect-[4/3] w-full rounded-[6px] object-cover ring-1 ring-rule"
+                className="block aspect-[4/3] w-full object-cover ring-1 ring-sumi/15"
               />
             </figure>
           )}
           <div className="min-w-0">
-            <p className="text-[14px] font-bold text-lamp">{categoryLabel(item.tag)}</p>
-            <h1 className="mt-2 font-display text-[clamp(32px,8vw,60px)] leading-[1.15] text-ink">{item.title_ja}</h1>
-            {item.title && <p className="mt-2 font-mono text-[13px] tracking-[0.04em] text-ink-3">{item.title}</p>}
-            {item.price != null && <p className="mt-6 font-mono text-[26px] text-lamp">{yen(item.price)}</p>}
+            <p className="text-[14px] font-bold text-shu-deep">{categoryLabel(item.tag)}</p>
+            <h1 className="mt-2 font-brush text-[clamp(32px,8vw,60px)] leading-[1.15] text-sumi">{item.title_ja}</h1>
+            {item.title && <p className="mt-2 font-bold text-[13px] tracking-[0.04em] text-sumi/60">{item.title}</p>}
+            {item.price != null && <p className="mt-6 font-bold text-[26px] text-shu-deep">{yen(item.price)}</p>}
             {item.description && (
-              <p className="mt-6 max-w-[34em] whitespace-pre-line text-[16px] leading-[2] text-ink-2">{item.description}</p>
+              <p className="mt-6 max-w-[34em] whitespace-pre-line text-[16px] leading-[2] text-sumi/80">{item.description}</p>
             )}
-            <div className="mt-10 rounded-[6px] border border-rule p-5 sm:p-6">
-              <p className="text-[14px] leading-[1.9] text-ink-2">
+            <div className="mt-10 border border-sumi/20 p-5 sm:p-6">
+              <p className="text-[14px] leading-[1.9] text-sumi/80">
                 仕込みの量に限りがあります。確実に食べたい方は、InstagramのDMで予約してから来てください。
               </p>
               <a
                 href={SITE.instagram.dm}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-4 inline-flex h-12 items-center gap-2.5 whitespace-nowrap rounded-full bg-lamp px-6 text-[14px] font-bold text-lamp-ink transition-[background-color,transform] duration-200 hover:bg-ink active:translate-y-px"
+                className="mt-4 inline-flex h-12 items-center gap-2.5 whitespace-nowrap bg-shu px-6 text-[14px] font-bold text-paper transition-[background-color,transform] duration-200 hover:bg-shu-hi active:translate-y-px"
               >
                 <CameraIcon className="h-4 w-4" />
                 DMで予約する
@@ -98,21 +98,21 @@ export default async function MenuDetailPage({ params }: Props) {
         </article>
 
         {others && others.length > 0 && (
-          <section aria-labelledby="others-title" className="mt-20 border-t border-rule pt-10">
-            <h2 id="others-title" className="font-display text-[24px] text-ink">
+          <section aria-labelledby="others-title" className="mt-20 border-t border-sumi/20 pt-10">
+            <h2 id="others-title" className="font-brush text-[24px] text-sumi">
               ほかの品書き
             </h2>
             <ul className="mt-4">
               {(others as MenuItem[]).map((o) => (
-                <li key={o.id} className="border-b border-rule/70">
+                <li key={o.id} className="border-b border-sumi/15">
                   <Link href={`/menu/${o.id}`} className="group flex items-baseline gap-3 py-4">
-                    <span className="min-w-0 text-[16px] font-bold text-ink transition-colors group-hover:text-lamp">
+                    <span className="min-w-0 text-[16px] font-bold text-sumi transition-colors group-hover:text-shu-deep">
                       {o.title_ja}
                     </span>
                     {o.price != null && (
                       <>
                         <span className="leader" aria-hidden="true" />
-                        <span className="shrink-0 font-mono text-[14px] text-lamp">{yen(o.price)}</span>
+                        <span className="shrink-0 font-bold text-[14px] text-shu-deep">{yen(o.price)}</span>
                       </>
                     )}
                   </Link>
@@ -121,6 +121,7 @@ export default async function MenuDetailPage({ params }: Props) {
             </ul>
           </section>
         )}
+        </div>
       </main>
       <SiteFooter />
     </>

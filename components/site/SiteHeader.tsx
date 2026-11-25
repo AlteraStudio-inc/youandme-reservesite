@@ -3,101 +3,167 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { SITE } from "@/lib/site";
-import { CameraIcon, PinIcon } from "./icons";
+import Logo from "./Logo";
+import { CameraIcon } from "./icons";
 
-const LINKS = [
-  { href: "/#route", label: "献立" },
-  { href: "/#story", label: "屋台のこと" },
-  { href: "/#visit", label: "行き方" },
-  { href: "/menu", label: "品書き" },
+const NAV = [
+  { href: "/#about", label: "エル・バホンとは" },
+  { href: "/#menu", label: "人気メニュー" },
+  { href: "/#news", label: "お知らせ" },
+  { href: "/#shop", label: "屋台情報" },
 ];
 
-/** 上部ナビ（N9 edge-aligned）＋ スマホ用の下部固定バー（C4） */
+/** 木の板のヘッダーに、朱のロゴ札をぶら下げる */
 export default function SiteHeader() {
-  const [scrolled, setScrolled] = useState(false);
-  const [showBar, setShowBar] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 24);
-      setShowBar(window.scrollY > 520);
+    document.body.style.overflow = open ? "hidden" : "";
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
     };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [open]);
 
   return (
     <>
-      <header
-        className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color] duration-300 ease-out border-b ${
-          scrolled ? "bg-night/85 backdrop-blur-md border-rule" : "bg-transparent border-transparent"
-        }`}
-      >
-        <div className="mx-auto flex h-16 max-w-[1280px] items-center justify-between gap-4 px-4 sm:px-8">
-          <Link href="/" className="group flex items-baseline gap-2.5 whitespace-nowrap" aria-label="El Bajon トップへ">
-            <span className="font-display text-[22px] leading-none text-lamp transition-opacity group-hover:opacity-80">
-              El Bajon
+      <header className="wood fixed inset-x-0 top-0 z-50 h-16 shadow-[0_6px_18px_-8px_oklch(0%_0_0/0.7)] lg:h-[104px]">
+        <div className="relative mx-auto flex h-full max-w-[1280px] items-center justify-center px-4 lg:justify-end lg:px-8">
+          {/* ロゴ札：PCは左上からぶら下がる / スマホは中央 */}
+          <Link href="/" aria-label={`${SITE.name} トップへ`} className="lg:absolute lg:top-0 lg:left-8">
+            <span className="hidden lg:block">
+              <Logo size="md" />
             </span>
-            <span className="hidden font-mono text-[11px] tracking-[0.12em] text-ink-3 sm:inline">
-              天神屋台
+            <span className="flex flex-col items-center text-cream lg:hidden">
+              <span className="text-[9px] font-bold tracking-[0.2em] text-mute">天神 日銀前 屋台</span>
+              <span className="font-brush text-[26px] leading-none">{SITE.name}</span>
             </span>
           </Link>
 
-          <nav aria-label="メイン" className="hidden items-center gap-8 md:flex">
-            {LINKS.map((l) => (
+          {/* PCナビ */}
+          <div className="hidden flex-col items-end gap-3 lg:flex">
+            <div className="flex items-center gap-3">
               <Link
-                key={l.href}
-                href={l.href}
-                className="whitespace-nowrap text-[14px] font-medium text-ink-2 transition-colors hover:text-lamp"
+                href="/menu"
+                className="inline-flex h-8 items-center whitespace-nowrap border border-cream/70 px-5 text-[13px] font-bold text-cream transition-colors hover:bg-cream hover:text-sumi"
               >
-                {l.label}
+                品書き
               </Link>
-            ))}
-          </nav>
+              <a
+                href={SITE.mapUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-8 items-center whitespace-nowrap border border-cream/70 px-5 text-[13px] font-bold text-cream transition-colors hover:bg-cream hover:text-sumi"
+              >
+                地図
+              </a>
+              <a
+                href={SITE.instagram.dm}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-8 items-center whitespace-nowrap bg-shu px-5 text-[13px] font-bold text-paper transition-colors hover:bg-shu-hi"
+              >
+                DMで予約
+              </a>
+              <a
+                href={SITE.instagram.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="ml-1 inline-flex h-9 w-9 items-center justify-center text-cream transition-opacity hover:opacity-70"
+              >
+                <CameraIcon className="h-7 w-7" />
+              </a>
+            </div>
+            <nav aria-label="メイン" className="flex items-center gap-9">
+              {NAV.map((n) => (
+                <Link
+                  key={n.href}
+                  href={n.href}
+                  className="whitespace-nowrap text-[16px] font-bold tracking-[0.08em] text-cream transition-colors hover:text-shu-hi"
+                >
+                  {n.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
 
-          <a
-            href={SITE.instagram.dm}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex h-10 items-center gap-2 whitespace-nowrap rounded-full border border-lamp/60 px-4 text-[13px] font-bold text-lamp transition-colors hover:bg-lamp hover:text-lamp-ink active:translate-y-px"
+          {/* スマホ：朱の MENU ボタン */}
+          <button
+            type="button"
+            onClick={() => setOpen(true)}
+            aria-expanded={open}
+            aria-controls="sp-menu"
+            className="absolute top-0 right-0 flex h-16 w-16 flex-col items-center justify-center gap-1 bg-shu text-paper active:bg-shu-deep lg:hidden"
           >
-            <CameraIcon className="h-4 w-4" />
-            DMで予約
-          </a>
+            <span className="block h-[2px] w-7 bg-paper" />
+            <span className="block h-[2px] w-7 bg-paper" />
+            <span className="block h-[2px] w-7 bg-paper" />
+            <span className="mt-0.5 text-[9px] font-bold tracking-[0.1em]">MENU</span>
+          </button>
         </div>
       </header>
 
-      {/* スマホ下部の固定バー */}
+      {/* スマホメニュー */}
       <div
-        className={`fixed inset-x-0 bottom-0 z-40 border-t border-rule bg-night/92 backdrop-blur-md transition-[transform,opacity] duration-300 ease-out md:hidden ${
-          showBar ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-full opacity-0"
+        id="sp-menu"
+        role="dialog"
+        aria-modal="true"
+        aria-label="メニュー"
+        className={`wood fixed inset-0 z-[60] flex flex-col transition-opacity duration-200 lg:hidden ${
+          open ? "opacity-100" : "pointer-events-none invisible opacity-0"
         }`}
-        style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
-        aria-hidden={!showBar}
       >
-        <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] gap-2 p-3">
-          <a
-            href={SITE.mapUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            tabIndex={showBar ? 0 : -1}
-            className="inline-flex h-12 items-center justify-center gap-2 whitespace-nowrap rounded-full border border-rule text-[14px] font-bold text-ink active:bg-night-3"
+        <div className="flex h-16 items-center justify-end">
+          <button
+            type="button"
+            onClick={() => setOpen(false)}
+            className="flex h-16 w-16 flex-col items-center justify-center bg-shu text-paper"
           >
-            <PinIcon className="h-4 w-4" />
-            地図
-          </a>
-          <a
-            href={SITE.instagram.dm}
-            target="_blank"
-            rel="noopener noreferrer"
-            tabIndex={showBar ? 0 : -1}
-            className="inline-flex h-12 items-center justify-center gap-2 whitespace-nowrap rounded-full bg-lamp text-[14px] font-bold text-lamp-ink active:bg-lamp-deep"
-          >
-            <CameraIcon className="h-4 w-4" />
-            DMで予約する
-          </a>
+            <svg viewBox="0 0 20 20" className="h-6 w-6" aria-hidden="true">
+              <path d="M4 4l12 12M16 4 4 16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+            <span className="mt-0.5 text-[9px] font-bold tracking-[0.1em]">CLOSE</span>
+          </button>
         </div>
+        <nav aria-label="スマホメニュー" className="flex flex-1 flex-col px-8 pt-4">
+          {[...NAV, { href: "/menu", label: "品書き（全メニュー）" }].map((n) => (
+            <Link
+              key={n.href}
+              href={n.href}
+              onClick={() => setOpen(false)}
+              className="border-b border-cream/15 py-5 text-[20px] font-bold tracking-[0.06em] text-cream"
+            >
+              {n.label}
+            </Link>
+          ))}
+          <div className="mt-10 grid gap-3">
+            <a
+              href={SITE.instagram.dm}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex h-14 items-center justify-center gap-2 bg-shu text-[16px] font-bold text-paper"
+            >
+              <CameraIcon className="h-5 w-5" />
+              InstagramのDMで予約
+            </a>
+            <a
+              href={SITE.mapUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex h-14 items-center justify-center border border-cream/60 text-[16px] font-bold text-cream"
+            >
+              地図をひらく
+            </a>
+          </div>
+          <p className="mt-8 text-[13px] leading-[2] text-mute">
+            営業 {SITE.hours.open}〜{SITE.hours.close}／{SITE.holiday}・雨天休業
+            <br />
+            {SITE.area} {SITE.landmark}
+          </p>
+        </nav>
       </div>
     </>
   );

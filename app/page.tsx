@@ -1,9 +1,11 @@
 import SiteHeader from "@/components/site/SiteHeader";
-import Hero from "@/components/site/Hero";
-import Snapshot from "@/components/site/Snapshot";
-import Route from "@/components/site/Route";
-import Story from "@/components/site/Story";
-import Visit from "@/components/site/Visit";
+import HomeHero from "@/components/site/HomeHero";
+import About from "@/components/site/About";
+import News from "@/components/site/News";
+import PopularMenu from "@/components/site/PopularMenu";
+import InstaBand from "@/components/site/InstaBand";
+import ShopInfo from "@/components/site/ShopInfo";
+import ReserveBand from "@/components/site/ReserveBand";
 import SiteFooter from "@/components/site/SiteFooter";
 
 export default function Home() {
@@ -11,11 +13,13 @@ export default function Home() {
     <>
       <SiteHeader />
       <main>
-        <Hero />
-        <Snapshot />
-        <Route />
-        <Story />
-        <Visit />
+        <HomeHero />
+        <About />
+        <News />
+        <PopularMenu />
+        <InstaBand />
+        <ShopInfo />
+        <ReserveBand />
       </main>
       <SiteFooter />
     </>
